@@ -5,12 +5,11 @@ var escea_udp = require('./lib/escea_udp')
   , events = require('events');
 
 var mqtt = require('mqtt')
-// var mqttclient  = mqtt.connect('mqtt://192.168.0.27')
+
 var mqttclient  = mqtt.connect('mqtt://192.168.0.127')
 
 mqttclient.on('connect', function () {
      mqttclient.subscribe('ESCEA-Thermostat/control/#')
-//  mqttclient.publish('gateway/publish', "INSIGHT Connected")
 })
 
 
@@ -21,7 +20,6 @@ mqttclient.on('message', function (topic, message) {
   if (topic == "ESCEA-Thermostat/60300/control/control")
   {
       var temp = JSON.parse(message.toString());
-//      console.log(topic + " state "+ temp.d.State)
       var controlState = (temp.d.State === 0) ? 0 : 1
       console.log("Control State " + controlState)
       ec.controlfire(fire_serial, 1, controlState);
@@ -30,8 +28,8 @@ mqttclient.on('message', function (topic, message) {
   if (topic == "ESCEA-Thermostat/60300/control/settemp")
   {
       var temp = message.toString();
-      console.log(" Set temperature "+ temp.d.Targettemp)
-      ec.setTemp(fire_serial, temp.d.Targettemp);
+      console.log(" Set temperature "+ temp)
+      ec.setTemp(fire_serial, temp);
   }
   if (topic == "ESCEA-Thermostat/60300/control/state")
   {
