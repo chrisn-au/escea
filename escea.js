@@ -10,7 +10,6 @@ var mqttclient  = mqtt.connect('mqtt://192.168.0.127')
 
 mqttclient.on('connect', function () {
      mqttclient.subscribe('ESCEA-Thermostat/control/#')
-     mqttclient.publish('gateway/connect', "INSIGHT Connected")
 //  mqttclient.publish('gateway/publish', "INSIGHT Connected")
 })
 
@@ -51,17 +50,8 @@ mqttclient.on('message', function (topic, message) {
 
 })
 
-var fireState = {Foreeffect:"" , Roomtemp:"", State:"", Targettemp:"" };
-
-var payLoad = new Object()
-payLoad.d = fireState
-var ec = null
-var fire_serial = "urk"
 function escea() {
-
-  var self = this;
-  this.first = true;
-
+   var self = this;
    self.em  = new events.EventEmitter();
    self.escea_comms = new escea_udp(self.em);
    ec = self.escea_comms
