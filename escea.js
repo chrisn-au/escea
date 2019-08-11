@@ -9,7 +9,7 @@ var mqtt = require('mqtt')
 var mqttclient  = mqtt.connect('mqtt://192.168.0.127')
 
 mqttclient.on('connect', function () {
-     mqttclient.subscribe('ESCEA-Thermostat/control/#')
+     mqttclient.subscribe('ESCEA-Thermostat/60300/control/#')
 })
 
 
